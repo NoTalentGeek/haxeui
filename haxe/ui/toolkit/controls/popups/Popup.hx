@@ -168,6 +168,8 @@ class Popup extends VBox implements IDraggable {
 	private function get_config():Dynamic {
 		return _config;
 	}
+
+	public function GetContentObject(){ return _content; }
 	
 	//******************************************************************************************
 	// Helpers
