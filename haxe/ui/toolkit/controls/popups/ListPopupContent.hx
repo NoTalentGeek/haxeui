@@ -79,6 +79,8 @@ class ListPopupContent extends PopupContent {
 		}
 		return _list.listSize;
 	}
+
+	public function GetListObject(){ return _list; }
 	
 	//******************************************************************************************
 	// Event handlers
