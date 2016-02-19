@@ -20,30 +20,30 @@ class Popup extends VBox implements IDraggable {
 	private var _buttonBar:Box;
 	private var _config:Dynamic;
 	private var _fn:Dynamic->Void;
-	
+
 	/**
 	 Creates a new popup
-	 
+
 	 * `title` - The title of the popup
 
 	 * `content` - The content of the popup
-	 
+
 	 * `config` - Configuration options for the popup (buttons, etc)
-	 
+
 	 * `fn` - Callback invoked when buttons are clicked
-	 
+
 	 Note - Creating the popup does not display it, use `PopupManager.showPopup` to display it.
 	 **/
 	public function new(title:String = null, content:PopupContent = null, config:Dynamic = null, fn:Dynamic->Void = null) {
 		super();
 		_autoSize = true;
-		
+
 		if (title != null) {
 			_titleBar = new Box();
 			_titleBar.autoSize = false;
 			_titleBar.id = "titleBar";
 		}
-		
+
 		_content = content;
 		_content.popup = this;
 
@@ -57,7 +57,7 @@ class Popup extends VBox implements IDraggable {
 		_buttonBar.id = "buttonBar";
 		//_buttonBar.percentWidth = 100;
 		_buttonBar.horizontalAlign = "center";
-		
+
 		_config = config;
 		if (_config == null) {
 			_config = { };
@@ -74,16 +74,16 @@ class Popup extends VBox implements IDraggable {
 				PopupManager.instance.hidePopup(this);
 				callClosingCallback(PopupButton.CANCEL);
 			});
-		
+
 		_fn = fn;
 	}
-	
+
 	//******************************************************************************************
 	// Overrides
 	//******************************************************************************************
 	private override function initialize():Void {
 		super.initialize();
-		
+
 		if (_titleBar != null) {
 			_titleBar.percentWidth = 100;
 			_titleBar.addChild(_title);
@@ -103,7 +103,7 @@ class Popup extends VBox implements IDraggable {
 			}
 			addChild(_titleBar);
 		}
-		
+
 		if (_content == null) {
 			_content = new PopupContent();
 		}
@@ -134,14 +134,14 @@ class Popup extends VBox implements IDraggable {
 			}
 			addChild(_buttonBar);
 		}
-		
+
 		if (_config.width != null) {
 			width = _config.width;
 		}
-		
+
 		PopupManager.instance.centerPopup(this);
 	}
-	
+
 	//******************************************************************************************
 	// IDraggable
 	//******************************************************************************************
@@ -163,14 +163,14 @@ class Popup extends VBox implements IDraggable {
 	private function get_content():PopupContent {
 		return _content;
 	}
-	
+
 	public var config(get, null):Dynamic;
 	private function get_config():Dynamic {
 		return _config;
 	}
 
-	public function GetContentObject(){ return _content; }
-	
+    public function GetContentObject(){ return _content; }
+
 	//******************************************************************************************
 	// Helpers
 	//******************************************************************************************
@@ -218,10 +218,10 @@ class Popup extends VBox implements IDraggable {
 				clickButton(PopupButton.CLOSE);
 			});
 		}
-		
+
 		return button;
 	}
-	
+
 	@:dox(hide)
 	public function clickButton(button:Int):Void {
 		if (_content.onButtonClicked(button) == true) {
@@ -231,7 +231,7 @@ class Popup extends VBox implements IDraggable {
 			_fn(button);
 		}
 	}
-	
+
 	public function callClosingCallback(button:Dynamic) {
 		if (_fn != null)
 			_fn(button);
